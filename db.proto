@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+// This tells the compiler where to put the generated Go files
+package pb;
+option go_package = "./pb";
+
+// The User message matches your model.go struct
+message User {
+  uint32 id = 1;
+  string username = 2;
+  bool is_deleted = 3;
+}
+
+// Requests and Responses for your API
+message InsertRequest { User user = 1; }
+message FindRequest { uint32 id = 1; }
+message DeleteRequest { uint32 id = 1; }
+message Response { string message = 1; }
+
+// The Service defines the "Actions" your database can take over the network
+service DatabaseService {
+  rpc Insert(InsertRequest) returns (Response);
+  rpc Find(FindRequest) returns (User);
+  rpc Delete(DeleteRequest) returns (Response);
+}

@@ -1,0 +1,4 @@
+# Create the file and add items to ignore
+echo "test.db" > .gitignore
+echo "*.exe" >> .gitignore
+echo "bin/" >> .gitignore

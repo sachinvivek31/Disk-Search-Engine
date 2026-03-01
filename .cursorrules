@@ -1,0 +1,5 @@
+When writing database logic, ensure all file seeks are checked for errors and data is flushed before the program exits.
+
+When deleting, ensure we don't accidentally decrement NumRows if using a tombstone approach, as the slot remains occupied.
+
+The Table's sync.RWMutex protects all Pager file operations: Pager.GetPage and Pager.FlushPage are only invoked from within Table methods (InsertRow, DeleteUser, FindUser, SelectAll, splitAndInsert, flushHeader). Ensure no code accesses the Pager directly without holding the Table lock.
